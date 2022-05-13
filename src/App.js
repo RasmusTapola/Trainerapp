@@ -1,25 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import Home from './components/Home';
+import Training from './components/Training';
+import Customers from './components/Customers'
+import Notfound from './components/Notfound';
+import {  BrowserRouter,  Routes,  Route,  Link} from 'react-router-dom';
+import { Button } from '@mui/material';
+
+
+ 
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+          <Button style={{margin: 5}}  component={Link} to={'/'}>Home</Button> 
+          <Button style={{margin: 5}}  component={Link} to={'/Training'}>Trainings</Button>
+          <Button style={{margin: 5}}  component={Link} to={'/Customers'}>Customers</Button>
+        <Routes>
+          <Route exact path = "/" element={<Home />}/>
+          <Route path = "/Training" element={<Training />}/>
+          <Route path = "/Customers" element={<Customers />}/>
+          <Route path = "/Notfound" element={<Notfound />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
+  
+ 
 }
 
 export default App;
