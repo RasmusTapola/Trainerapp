@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect, useRef, useCallback} from "react";
 import { AgGridReact } from "ag-grid-react";
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
@@ -67,6 +67,10 @@ export default function Customers(){
         }
       };
 
+      const exportFile = useCallback(() => {
+        gridRef.current.api.exportDataAsCsv();
+    }, []);
+
     const columns =[
         {headerName: 'Firstname', field: 'firstname', sortable:true, filter:true, floatingFilter:true },
         {headerName: 'Lastname', field: 'lastname', sortable:true, filter:true, floatingFilter:true },
@@ -87,7 +91,8 @@ export default function Customers(){
         <div>
             <h1>Customers</h1>
             
-            <AddCustomer saveCustomer={saveCustomer} />            
+            <AddCustomer saveCustomer={saveCustomer} />   
+            <Button style={{margin: 5}}  onClick={exportFile}>Export file in .csv format</Button>         
             <div
             className="ag-theme-material"
             style={{

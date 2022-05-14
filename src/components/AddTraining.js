@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Datetime from 'react-datetime';
+import "react-datetime/css/react-datetime.css";
+
 
 
 
@@ -31,12 +34,19 @@ export default function AddTraining(props){
         
     } 
 
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
+    const setDate = (date) => {
+        setSelectedDate(date);
+        setTraining({...training, date: date.toISOString()})
+      }
+
       useEffect(() => getapi(), []);
 
     return (
         <div>
             <h3>Add a training</h3>
-            <input type= "date" name="date" value={training.date} onChange={inputChanged} ></input>
+            <Datetime name="date" value={training.date} onChange={date => setDate(date)} />
             <TextField name="duration" value={training.duration} onChange={inputChanged} label="Duration"/>
             <TextField name="activity" value={training.activity} onChange={inputChanged} label="Activity"/>
             <Button style={{margin : 5}} variant = 'outlined' onClick={AddTraining}>Add</Button>
